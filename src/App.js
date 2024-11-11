@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route, Navigate } from 'react-router-dom';  // <-- Use HashRouter
 import { UserProvider, useUserContext } from './components/utilis/UserContext';
 import Header from './components/Header';
 import QuoteList from './components/QuoteList';
@@ -42,4 +42,3 @@ function App() {
 }
 
 export default App;
-
