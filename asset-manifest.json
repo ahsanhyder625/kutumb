@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/kutumb/static/css/main.c440e2ea.css",
+    "main.js": "/kutumb/static/js/main.4613606c.js",
+    "index.html": "/kutumb/index.html",
+    "main.c440e2ea.css.map": "/kutumb/static/css/main.c440e2ea.css.map",
+    "main.4613606c.js.map": "/kutumb/static/js/main.4613606c.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.c440e2ea.css",
+    "static/js/main.4613606c.js"
+  ]
+}
