@@ -1,25 +1,45 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { UserProvider, useUserContext } from './components/utilis/UserContext';
+import Header from './components/Header';
+import QuoteList from './components/QuoteList';
+import QuoteCreation from './components/QuoteCreation';
+import Login from './components/Login';
+import ErrorPage from './components/ErrorPage';
+
+const AppLayout = () => {
+  const { loggedInUser, setLoggedInUser, token, setToken } = useUserContext();
+  useEffect(() => {
+    const storedToken = sessionStorage.getItem('token');
+    const storedUsername = sessionStorage.getItem('username');
+
+    if (storedToken && storedUsername) {
+      setLoggedInUser(storedUsername); 
+      setToken(storedToken); 
+    }
+  }, [setLoggedInUser, setToken]);
+  return (
+    <div className="app">
+       {loggedInUser && <Header />}
+      <Routes>
+        <Route path="/" element={loggedInUser ? <Navigate to="/quote-list" /> : <Login />} />
+        <Route path="/quote-list" element={loggedInUser ? <QuoteList /> : <Navigate to="/" />} />
+        <Route path="/create-quote" element={loggedInUser ? <QuoteCreation /> : <Navigate to="/" />} />
+        <Route path="*" element={<ErrorPage />} />
+      </Routes>
+    </div>
+  );
+};
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <UserProvider>
+        <AppLayout />
+      </UserProvider>
+    </Router>
   );
 }
 
 export default App;
+
